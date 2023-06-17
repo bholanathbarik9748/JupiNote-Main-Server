@@ -6,6 +6,7 @@ const app = express();
 var cors = require('cors');
 require('dotenv').config();
 app.use(express.json())
+const PORT = process.env.PORT || 4000;
 
 // middleware
 app.use(cookieParser());
@@ -18,7 +19,7 @@ const noteRoute = require('./routes/noteRoute')
 
 // Start Server also Connect to Db
 mongoose.connect(process.env.DB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then((res) => app.listen(process.env.PORT, (req, res) => { console.log(`Server Start PORT http://localhost:${process.env.PORT}/`); }))
+    .then((res) => app.listen(PORT, (req, res) => { console.log(`Server Start PORT http://localhost:${process.env.PORT}/`); }))
     .catch((err) => console.log(err))
 
 // import Routes
