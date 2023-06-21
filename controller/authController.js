@@ -119,7 +119,6 @@ module.exports.updateUser = async (req, res) => {
     const {email, newEmail, password} = req.body;
 
     const userExists = await UserModel.findOne({email: newEmail});
-    console.log(userExists)
     if (userExists) {
         return res.send({
             success: true,
@@ -128,7 +127,6 @@ module.exports.updateUser = async (req, res) => {
     }
 
     const userData = await UserModel.findOne({email});
-    console.log(userData);
     const authUser = await bcrypt.compare(password, userData.password);
     if (!authUser) {
         return res.send({

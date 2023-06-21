@@ -55,3 +55,26 @@ module.exports.updateNotes = async (req, res) => {
     console.log(updatedData);
     res.send({success: true});
 }
+
+//Deleted Notes
+module.exports.deleteNoteList = async (req, res) => {
+    const {username} = req.params;
+    let allNotes = await notesModel.find({username, isActive: false});
+    res.json({
+        allNotes
+    })
+}
+
+// Restore Notes
+module.exports.RestoreNote = async (req, res) => {
+    const {_id} = req.params;
+    console.log(req.params);
+    await notesModel.findOneAndUpdate(
+        {_id},
+        {$set: {isActive: true}}
+    );
+
+    res.status(201).json({
+        success: true,
+    })
+}
