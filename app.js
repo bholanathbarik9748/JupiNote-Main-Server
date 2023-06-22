@@ -15,7 +15,8 @@ app.use(cors());
 
 // import Routes
 const authRoute = require("./routes/authRoute");
-const noteRoute = require('./routes/noteRoute')
+const noteRoute = require('./routes/noteRoute');
+const HelpRoute = require('./routes/helpRoute');
 
 // Start Server also Connect to Db
 mongoose.connect(process.env.DB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -25,3 +26,4 @@ mongoose.connect(process.env.DB_URL, { useNewUrlParser: true, useUnifiedTopology
 // import Routes
 app.use(authRoute);
 app.use(noteRoute);
+app.use(HelpRoute);
