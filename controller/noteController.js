@@ -27,7 +27,7 @@ module.exports.createNewNotes = async (req, res) => {
 // Retrieve all Note 
 module.exports.retrieveNotes = async (req, res) => {
     const {username} = req.params;
-    let allNotes = await notesModel.find({username, isActive: true});
+    let allNotes = await notesModel.find({username, isActive: true}).sort({"updated_at": -1});
     res.json({
         allNotes
     })
