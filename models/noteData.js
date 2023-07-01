@@ -24,6 +24,10 @@ const notesModel = new mongoose.Schema({
     isActive: {
         type: Boolean,
         default : true
+    },
+    isDelete : {
+        type: Boolean,
+        default : false
     }
 },{
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }

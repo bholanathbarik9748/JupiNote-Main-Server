@@ -15,6 +15,7 @@ router.get("/v1/delete/notes/all/:username",noteController.deleteNoteList)
 // Routers patch
 router.patch('/v1/notes/:id', noteController.deleteNotes);
 router.patch('/v1/restore/notes/:_id', noteController.RestoreNote);
+router.patch('/v1/delete/notes/:_id', noteController.PermanentlyDeleteNote);
 
 // Export Module
 module.exports = router;
