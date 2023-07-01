@@ -13,13 +13,11 @@ const requireAuth = (req, res, next) => {
 
     jwt.verify(authToken, process.env.AuthToken, (err, deCodeToken) => {
         if (err) {
-            console.log(err);
             res.status(500).json({
                 success: false,
                 message: "You are not authorized to perform this operation. "
             });
         } else {
-            console.log(deCodeToken);
             next();
         }
     })

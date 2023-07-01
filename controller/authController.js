@@ -7,7 +7,6 @@ require('dotenv').config();
 
 // Error Handler
 const handlerError = (err) => {
-    console.log(err.message, err.code);
     let errors = ""
 
     // user already exists
@@ -65,7 +64,6 @@ module.exports.login = async (req, res) => {
             })
         }
     } catch (error) {
-        console.log(error);
         const errorHandler = handlerError(error);
         res.status(400).json({
             success: false,

@@ -16,7 +16,6 @@ module.exports.createNewNotes = async (req, res) => {
             newNotes
         })
     } catch (error) {
-        console.log(error);
         res.status(200).json({
             success: false,
             newNotes
@@ -40,7 +39,6 @@ module.exports.deleteNotes = async (req, res) => {
         {_id: id},
         {$set: {isActive: false}}
     )
-    console.log(deleteNote);
     res.send({success: true});
 }
 
@@ -52,7 +50,6 @@ module.exports.updateNotes = async (req, res) => {
         {$set: {title: title, topic: topic, body: body, url: url, isActive: true}}
     )
 
-    console.log(updatedData);
     res.send({success: true});
 }
 
