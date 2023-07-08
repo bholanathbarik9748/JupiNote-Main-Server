@@ -22,7 +22,7 @@ const user = new mongoose.Schema({
     },
 },{
   collection: 'user'
-})
+}, {timestamps: true})
 
 // Hash Password 
 user.pre('save', async function (next) {

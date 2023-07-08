@@ -10,7 +10,8 @@ router.post('/v1/notes/update',noteController.updateNotes);
 
 // Routers get
 router.get('/v1/notes/all/:username', noteController.retrieveNotes);
-router.get("/v1/delete/notes/all/:username",noteController.deleteNoteList)
+router.get("/v1/delete/notes/all/:username",noteController.deleteNoteList);
+router.get("/v1/user/notes/info/:username",noteController.UserNoteInformation);
 
 // Routers patch
 router.patch('/v1/notes/:id', noteController.deleteNotes);

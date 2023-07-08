@@ -56,7 +56,7 @@ module.exports.updateNotes = async (req, res) => {
 //Deleted Notes
 module.exports.deleteNoteList = async (req, res) => {
     const {username} = req.params;
-    let allNotes = await notesModel.find({username, isActive: false, isDelete : false});
+    let allNotes = await notesModel.find({username, isActive: false, isDelete: false});
     res.json({
         allNotes
     })
@@ -85,5 +85,23 @@ module.exports.PermanentlyDeleteNote = async (req, res) => {
 
     res.status(201).json({
         success: true,
+    })
+}
+
+//User Create Bin Delete Data
+exports.UserNoteInformation = async (req, res) => {
+    const {username} = req.params;
+
+    const totalNotes = await notesModel.find({username});
+    const totalBin = await notesModel.find({username, isActive: false, isDelete: false});
+    const totalDelete = await notesModel.find({username, isDelete: true});
+    const totalActive = await notesModel.find({username,isActive : true});
+
+    res.status(200).send({
+        status : true,
+        total_Note : totalNotes.length,
+        total_Active_Note : totalActive.length,
+        bin : totalBin.length,
+        delete : totalDelete.length
     })
 }

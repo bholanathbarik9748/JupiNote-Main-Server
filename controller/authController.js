@@ -143,6 +143,63 @@ module.exports.updateUser = async (req, res) => {
     })
 }
 
+// Restart Password
+exports.restartPassword = async (req, res) => {
+    const {username, currPassword, newPassword} = req.body;
+    const User = await UserModel.findOne({username});
+
+    if (!User) {
+        res.status(200).send({
+            status: "false", error_code: "10001"
+        })
+    }
+
+    const authUser = await bcrypt.compare(currPassword, User.password);
+    if (!authUser) {
+        res.status(200).send({
+            status: "false", error_code: "10002"
+        })
+    }
+
+    const salt = await bcrypt.genSalt();
+    const new_Password = await bcrypt.hash(newPassword, salt);
+    await UserModel.findOneAndUpdate({username}, {$set: {"password": new_Password}});
+    res.status(200).send({
+        status: "success"
+    })
+}
+
+// Username Restart
+exports.restartUserName = async (req, res) => {
+    const {OldUsername, username, password} = req.body;
+    console.log(req.body);
+    const user = await UserModel.findOne({username});
+    if (user) {
+        res.status(200).send({
+            status: "false", error_code: "10001"
+        })
+    }
+
+    const OldUser = await UserModel.findOne({username: OldUsername});
+    if (OldUser) {
+        res.status(200).send({
+            status: "false", error_code: "10002"
+        })
+    }
+
+
+    const authUser = await bcrypt.compare(password, OldUser.password);
+    if (!authUser) {
+        res.status(200).send({
+            status: "false", error_code: "10003"
+        })
+    }
+    await UserModel.updateMany({_id: OldUser._id}, {"$set": {"username": username}});
+    res.status(200).send({
+        status: "success"
+    })
+}
+
 // Logout
 module.exports.logout = (req, res) => {
     res.clearCookie('authToken')
