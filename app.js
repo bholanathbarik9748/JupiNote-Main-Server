@@ -5,13 +5,14 @@ const cookieParser = require('cookie-parser');
 const app = express();
 var cors = require('cors');
 require('dotenv').config();
-app.use(express.json())
+const morgan = require('morgan')
 const PORT = process.env.PORT || 4000;
 
 // middleware
 app.use(cookieParser());
 app.use(cors());
-
+app.use(express.json())
+app.use(morgan('dev'));
 
 // import Routes
 const authRoute = require("./routes/authRoute");
